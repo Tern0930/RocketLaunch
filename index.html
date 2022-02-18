@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Space</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet">
+    <link href="rocketLaunched.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <div class="space">
+        <div class="planet-area">
+            <img src="source/mars.png" class="planet">
+            <div class="planet-rocket-container">
+                <div class="rocket-container">
+                    <div class="rocket-container_inner">
+                        <img src="source/rocket.png" class="rocket">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-panel">
+        <div class="control-panel__inner">
+            <form>
+                <input type="password" placeholder="Enter password" id="password">
+                <input type="button" value="Ok" id="password-confirm">
+            </form>
+            <div class="check-buttons">
+                <label class="custom-checkbox"><input type="checkbox" onchange="flightAccess()"><span></span></label>
+                <label class="custom-checkbox"><input type="checkbox" onchange="flightAccess()"><span></span></label>
+                <label class="custom-checkbox"><input type="checkbox" onchange="flightAccess()"><span></span></label>
+                <label class="custom-checkbox"><input type="checkbox" onchange="flightAccess()"><span></span></label>
+                <label class="custom-checkbox"><input type="checkbox" onchange="flightAccess()"><span></span></label>
+                <label class="custom-checkbox"><input type="checkbox" onchange="flightAccess()"><span></span></label>
+            </div>
+            <div class="levers">
+                <input type="range" max="75" min="-25" onchange="flightAccess()">
+                <input type="range" max="25" min="-25" onchange="flightAccess()">
+                <input type="range" max="100" min="0" onchange="flightAccess()">
+                <input type="range" max="100" min="0" onchange="flightAccess()">
+                <input type="range" max="100" min="0" onchange="flightAccess()">
+            </div>
+            <input type="button" value="Launch" id="launch">
+            <button id="restart" onclick="restart()"><i class="ri-restart-line"></i></button>
+        </div>
+        </div>
+    </div>
+</body>
+<script src="index.js" async></script>
+</html>
