@@ -1,4 +1,4 @@
-.planet-rocket-container_rotate {}
+.planet-rocket-container_rotate {opacity: 1}
 .rocket-container_rotate {}
 
 @keyframes rocket-rotation {
@@ -6,10 +6,3 @@
     to {transform: rotate(360deg)}
 }
 
-/*.rocket_rotation {*/
-/*    animation-name: rocket-rotation;*/
-/*    animation-duration: 5s;*/
-/*    animation-direction: normal;*/
-/*    animation-iteration-count: infinite;*/
-/*    animation-timing-function: linear;*/
-/*}*/

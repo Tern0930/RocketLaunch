@@ -15,7 +15,13 @@ const rocketPlanetContainer = document.querySelector('.planet-rocket-container')
 rocketPlanetContainer.classList.add('planet-rocket-container_rotate');
 rocketContainer.classList.add('rocket-container_rotate');
 
-rotateRocket('planet-rocket-container', 25, 0);
+try {
+    rotateRocket('planet-rocket-container', 25, 0);
+} catch (e) {
+    console.warn(`Couldn't access css stylesheet: ${e}`);
+}
+
+console.log(document.styleSheets[3])
 
 disableInput();
 restartButton.setAttribute("disabled", "disabled");
@@ -27,18 +33,14 @@ passwordConfirmButton.addEventListener('click', () => {
 });
 
 launchButton.addEventListener('click', () => {
-    console.log('Pipa');
     rocket.classList.add('rocket_rotation');
     rocket.classList.add('rocket_launched');
     rocketContainerInner.classList.add('rocket_launched');
-    // rocketContainerInner.classList.add('rocket_launched');
-    // rocketContainerInner.classList.add('rocket_rotation');
 
     launchRocket(leversValues.get(levers.children[2]), leversValues.get(levers.children[3]), leversValues.get(levers.children[4]));
     disableInput();
 })
-// rocket.classList.add('rocket_launched');
-// rocketContainer.classList.add('rocket-container_launched');
+
 function disableInput() {
     for (const lever of levers.children) {
         lever.setAttribute("disabled", "disabled");
@@ -73,26 +75,29 @@ function flightAccess() {
     for (const checkboxState of checkboxValues) {
         accessState &= checkboxState[1];
     }
-    rotateRocket('planet-rocket-container', leversValues.get(levers.children[0]), 0);
-    rotateRocket('rocket-container', leversValues.get(levers.children[1]), 1);
+    try {
+        rotateRocket('planet-rocket-container', leversValues.get(levers.children[0]), 0);
+        rotateRocket('rocket-container', leversValues.get(levers.children[1]), 1);
+    } catch (e) {
+        console.warn(`Couldn't access css stylesheet: ${e}`);
+    }
     if (accessState)
         launchButton.removeAttribute("disabled");
     else
         launchButton.setAttribute("disabled", "disabled");
-    console.log(checkboxValues);
 }
 
 function rotateRocket(className, angle, index) {
-    if (document.styleSheets[2].rules.length > index)
-        document.styleSheets[2].removeRule(index);
-    document.styleSheets[2].addRule(`.${className}_rotate`, `transition: 0.5s linear; 
+    if (document.styleSheets[3].rules.length > index)
+        document.styleSheets[3].removeRule(index);
+    document.styleSheets[3].addRule(`.${className}_rotate`, `transition: .1s linear; 
     transform: rotate(${angle}deg) ${className === 'rocket-container' ? 'scale(0.4) translate(0, -30%)' : ''};`, index);
 }
 
 function launchRocket(speedL, speedR, speedM, index=2) {
     if (speedL !== speedR) {
         const origPos = speedL > speedR ? (2 + speedR / (speedL - speedR)) * 100 / 3 : (1 - speedL / (speedR - speedL)) * 100 / 3;
-        document.styleSheets[2].addRule('.rocket_rotation', `
+        document.styleSheets[3].addRule('.rocket_rotation', `
         transform-origin: ${origPos}% 30%;
         animation-name: rocket-rotation;
         animation-duration: ${100 / Math.abs(speedL - speedR) * 20}s;
@@ -101,7 +106,7 @@ function launchRocket(speedL, speedR, speedM, index=2) {
         animation-timing-function: linear;
         `, index);
     }
-    document.styleSheets[2].addRule('.rocket_launched', `
+    document.styleSheets[3].addRule('.rocket_launched', `
     transition: transform ${100 / (Math.min(speedR, speedL) + speedM * 2) * 20}s cubic-bezier(.74, -0, 1, .63);
     transform: translate(0, -20000px);
     `)
@@ -118,7 +123,7 @@ function restart() {
         checkbox.firstElementChild.checked = false;
     }
     enableInput();
-    document.styleSheets[2].removeRule(document.styleSheets[2].rules.length - 1);
-    document.styleSheets[2].removeRule(document.styleSheets[2].rules.length - 2);
+    document.styleSheets[3].removeRule(document.styleSheets[3].rules.length - 1);
+    document.styleSheets[3].removeRule(document.styleSheets[3].rules.length - 2);
     restartButton.setAttribute("disabled", "disabled");
 }
